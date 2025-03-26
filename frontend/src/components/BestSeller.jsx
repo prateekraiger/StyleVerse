@@ -5,16 +5,16 @@ import Title from "./title";
 
 const BestSeller = () => {
   const { products } = useContext(ShopContext);
-  const [bestSeller, setBestSeller] = useState([]);
+  const [bestSeller, setBestSeller]  = useState([]);
 
   useEffect(() => {
-    if (products && products.length > 0) {
+    if (products && products.length  > 0) {
       const bestProduct = products.filter((item) => item.bestseller === true);
       setBestSeller(bestProduct.slice(0, 5));
     }
   }, [products]);
 
-  return (
+  return ( 
     <div className="my-10">
       <div className="text-center text-3xl py-8">
         <Title text1="BEST " text2="SELLERS" />
