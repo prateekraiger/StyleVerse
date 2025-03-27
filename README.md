@@ -33,13 +33,13 @@ The project follows a standard React application structure with components, asse
 1. Clone the repository:
 
    ```
-   git clone https://github.com/yourusername/shopverse.git
+   git clone https://github.com/prateekraiger/StyleVerse
    ```
 
 2. Navigate to the project directory:
 
    ```
-   cd shopverse
+   cd StyleVerse
    ```
 
 3. Install dependencies:
@@ -65,11 +65,9 @@ The project follows a standard React application structure with components, asse
 - `/collection` - Shop/Products page
 - `/about` - About Us page
 - `/contact` - Contact page
-- `/faq` - Frequently Asked Questions
+- `/ordere` - Orders Page
 - `/shipping` - Shipping Policy
 - `/returns` - Returns & Exchanges
-- `/privacy` - Privacy Policy
-- `/terms` - Terms & Conditions
 
 ## Customization
 
@@ -89,4 +87,4 @@ We welcome contributions to improve ShopVerse! Please follow these steps:
 ##  License
 ----------
 
-ShopVerse Website is licensed under the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0.txt)
+StyleVerse Website is licensed under the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0.txt)
