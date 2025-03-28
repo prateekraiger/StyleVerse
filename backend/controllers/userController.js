@@ -16,9 +16,18 @@ const loginUser = async (req, res) => {
     if (!user) {
       return res.json({ success: false, message: "User not found" });
     }
-    if (!user.password) {
-      return res.json({ success: false, message: "User not found" });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (isMatch) {
+      const token = createToken(user._id);
+      res.json({ success: true, token });
     }
+    else {
+      console.log(error);
+      return res.json({ success: false, message: "Invalid email or password" });
+    }
+
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: "Something went wrong" });
