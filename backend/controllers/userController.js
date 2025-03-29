@@ -22,12 +22,10 @@ const loginUser = async (req, res) => {
     if (isMatch) {
       const token = createToken(user._id);
       res.json({ success: true, token });
-    }
-    else {
+    } else {
       console.log(error);
       return res.json({ success: false, message: "Invalid email or password" });
     }
-
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: "Something went wrong" });
@@ -76,6 +74,23 @@ const registerUser = async (req, res) => {
 };
 
 // admin login
-const adminLogin = async (req, res) => {};
+const adminLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (
+      email === process.env.ADMIN_EMAIL &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
+      const token = jwt.sign(email + password, process.env.JWT_SECRET);
+      res.json({ success: true, token });
+    } else {
+      res.json({ success: false, message: "Invalid email or password" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Something went wrong" });
+  }
+};
 
 export { loginUser, registerUser, adminLogin };
