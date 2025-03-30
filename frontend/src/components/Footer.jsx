@@ -19,9 +19,9 @@ const Footer = () => {
     <footer className="bg-[#F7FAFC] border-t border-[#E2E8F0] text-[#2D3748] py-12 px-5">
       <div className="container mx-auto">
         {/* Top Section */}
-        <div className="flex flex-col sm:grid grid-cols-1 md:grid-cols-4 gap-10 text-sm mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-sm mb-8">
           {/* Logo & Description */}
-          <div className="md:col-span-1">
+          <div>
             <img src={assets.logo} className="mb-5 w-36" alt="ShopVerse Logo" />
             <p className="text-[#4A5568] mb-4 leading-relaxed">
               Your go-to online store for the best products at unbeatable
@@ -66,7 +66,7 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div className="md:col-span-1">
+          <div>
             <p className="text-[#2C7A7B] font-semibold mb-4 uppercase tracking-wide">
               Quick Links
             </p>
@@ -106,63 +106,14 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Customer Service */}
-          <div className="md:col-span-1">
-            <p className="text-[#2C7A7B] font-semibold mb-4 uppercase tracking-wide">
-              Customer Service
-            </p>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  to="/faq"
-                  className="hover:text-[#38B2AC] transition-colors flex items-center gap-2"
-                >
-                  <span className="text-xs">›</span> FAQ
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/shipping"
-                  className="hover:text-[#38B2AC] transition-colors flex items-center gap-2"
-                >
-                  <span className="text-xs">›</span> Shipping Policy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/returns"
-                  className="hover:text-[#38B2AC] transition-colors flex items-center gap-2"
-                >
-                  <span className="text-xs">›</span> Returns & Exchanges
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/privacy"
-                  className="hover:text-[#38B2AC] transition-colors flex items-center gap-2"
-                >
-                  <span className="text-xs">›</span> Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/terms"
-                  className="hover:text-[#38B2AC] transition-colors flex items-center gap-2"
-                >
-                  <span className="text-xs">›</span> Terms & Conditions
-                </Link>
-              </li>
-            </ul>
-          </div>
-
           {/* Contact Info */}
-          <div className="md:col-span-1">
+          <div>
             <p className="text-[#2C7A7B] font-semibold mb-4 uppercase tracking-wide">
               Contact Us
             </p>
             <ul className="space-y-3">
-              <li className="flex items-center gap-3">
-                <FaMapMarkerAlt className="text-[#ED8936] flex-shrink-0" />
+              <li className="flex items-start gap-3">
+                <FaMapMarkerAlt className="text-[#ED8936] flex-shrink-0 mt-1" />
                 <span className="text-[#4A5568]">
                   123 Shopping Avenue, Retail District, 10001
                 </span>
@@ -196,9 +147,9 @@ const Footer = () => {
                 <input
                   type="email"
                   placeholder="Your email"
-                  className="py-2 px-3 text-sm rounded-l border border-[#CBD5E0] focus:outline-none focus:border-[#2C7A7B] flex-grow"
+                  className="py-2 px-3 text-sm rounded-l border border-[#CBD5E0] focus:outline-none focus:border-[#2C7A7B] w-full max-w-[200px]"
                 />
-                <button className="bg-[#ED8936] hover:bg-[#DD6B20] text-white py-2 px-4 rounded-r transition-colors">
+                <button className="bg-[#ED8936] hover:bg-[#DD6B20] text-white py-2 px-4 rounded-r transition-colors whitespace-nowrap">
                   Subscribe
                 </button>
               </div>
@@ -207,14 +158,14 @@ const Footer = () => {
         </div>
 
         {/* Social Icons */}
-        <div className="flex flex-col sm:flex-row justify-between items-center pt-8 border-t border-[#E2E8F0]">
+        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-[#E2E8F0] space-y-4 md:space-y-0">
           {/* Copyright */}
-          <div className="text-sm text-[#718096] mb-4 sm:mb-0">
+          <div className="text-sm text-[#718096] order-3 md:order-1 text-center md:text-left">
             <p>© {new Date().getFullYear()} ShopVerse. All rights reserved.</p>
           </div>
 
           {/* Trust Badges */}
-          <div className="flex gap-6 mb-4 sm:mb-0">
+          <div className="flex gap-6 order-2 md:order-2">
             <div className="flex items-center gap-1 text-[#718096]">
               <FaLock size={14} />
               <span className="text-xs">Secure Payments</span>
@@ -226,7 +177,7 @@ const Footer = () => {
           </div>
 
           {/* Social Links */}
-          <div className="flex gap-4">
+          <div className="flex gap-4 order-1 md:order-3">
             <a
               href="#"
               aria-label="Facebook"

@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onSubmitHandler = async (e) => {
+    try {
+      e.preventDefault();
+      const response = awiat 
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -9,7 +22,7 @@ const Login = () => {
         </h1>
 
         <div className="bg-white py-8 px-6 shadow rounded-lg sm:px-10">
-          <form className="mb-0 space-y-6">
+          <form onSubmit={onSubmitHandler} className="mb-0 space-y-6">
             <div>
               <label
                 htmlFor="email"
@@ -18,6 +31,8 @@ const Login = () => {
                 Email Address
               </label>
               <input
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
                 id="email"
                 name="email"
                 type="email"
@@ -37,6 +52,8 @@ const Login = () => {
                 Password
               </label>
               <input
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
                 id="password"
                 name="password"
                 type="password"
