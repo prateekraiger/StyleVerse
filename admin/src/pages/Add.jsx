@@ -3,7 +3,7 @@ import assets from "../assets/assets";
 import axios from "axios";
 import { backendUrl } from "../App";
 
-const Add = () => {
+const Add = ({ token }) => {
   const [image1, setImage1] = useState(null);
   const [image2, setImage2] = useState(null);
   const [image3, setImage3] = useState(null);
@@ -58,14 +58,16 @@ const Add = () => {
       image4 && formData.append("images", image4);
 
       const response = await axios.post(
-        `${backendUrl}/api/products/add`,
+        backendUrl + "/api/products/add", 
         formData,
+        { headers: { token } },
         {
           headers: {
             "Content-Type": "multipart/form-data",
           },
         }
       );
+      console.log(response.data);
 
       setSuccessMessage("Product added successfully!");
       // Reset form
