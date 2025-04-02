@@ -6,12 +6,17 @@ const Login = () => {
   const [currentState, setCurrentState] = useState("Sign up");
   const { token, setToken, navigate, backendUrl } = useContext(ShopContext);
 
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     try {
-
-    }
-    catch (error) {
+      if (currentState === "Sign up") {
+      } else {
+      }
+    } catch (error) {
       console.log(error);
     }
   };
@@ -30,6 +35,8 @@ const Login = () => {
         ""
       ) : (
         <input
+          onChange={(e) => setName(e.target.value)}
+          value={name}
           type="text"
           className="w-full px-3 py-2 border border-gray-800"
           placeholder="Enter Name"
@@ -37,12 +44,16 @@ const Login = () => {
         />
       )}
       <input
+        onChange={(e) => setEmail(e.target.value)}
+        value={email}
         type="email"
         className="w-full px-3 py-2 border border-gray-800"
         placeholder="Enter Email"
         required
       />
       <input
+        onChange={(e) => setPassword(e.target.value)}
+        value={password}
         type="password"
         className="w-full px-3 py-2 border border-gray-800"
         placeholder="Enter password"
