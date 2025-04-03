@@ -10,7 +10,7 @@ ShopVerse is your go-to online store for high-quality products at competitive pr
 
 - **Responsive Design**: Fully responsive interface that works on all devices
 - **Product Collections**: Browse through categorized product collections
-- **User Authentication**: Secure login and registration system
+- **User Authentication**:  Secure login and registration system
 - **Shopping Cart**: Easy-to-use cart functionality
 - **Payment Processing**: Multiple secure payment options
 - **Newsletter Subscription**: Stay updated with our latest offers
