@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 import { useContext } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [currentState, setCurrentState] = useState("Sign up");
@@ -14,10 +16,33 @@ const Login = () => {
     event.preventDefault();
     try {
       if (currentState === "Sign up") {
+        const response = await axios.post(backendUrl + "/api/user/register", {
+          name,
+          email,
+          password,
+        });
+
+        if (response.data.success) {
+          setToken(response.data.token);
+          localStorage.setItem("token", response.data.token);
+        } else {
+          toast.error(response.data.message);
+        }
       } else {
+        const response = await axios.post(backendUrl + "/api/user/login", {
+          email,
+          password,
+        });
+        if (response.data.success) {
+          setToken(response.data.token);
+          localStorage.setItem("token", response.data.token);
+        } else {
+          toast.error(response.data.message);
+        }
       }
     } catch (error) {
       console.log(error);
+      toast.error(error.message);
     }
   };
 
