@@ -1,9 +1,9 @@
-import React from "react";
-import { useState } from "react";
-import { assets } from "../assets/assets";
+import React, { useState, useContext } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
-import { useContext } from "react";
+import { assets } from "../assets/assets";
+
+const adminUrl = import.meta.env.VITE_ADMIN_URL || "http://localhost:5174";
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
@@ -24,22 +24,36 @@ const Navbar = () => {
           { to: "/collection", label: "COLLECTION" },
           { to: "/about", label: "ABOUT" },
           { to: "/contact", label: "CONTACT" },
-        ].map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            className={({ isActive }) =>
-              `flex flex-col items-center gap-1 transition-all duration-200 ${
-                isActive
-                  ? "text-[#2C7A7B] font-semibold"
-                  : "hover:text-[#38B2AC]"
-              }`
-            }
-          >
-            <p className="tracking-wide">{item.label}</p>
-            <hr className="w-1/2 h-[2px] bg-[#2C7A7B] transition-all duration-200 scale-0 hover:scale-100" />
-          </NavLink>
-        ))}
+          { to: adminUrl, label: "ADMIN", external: true },
+        ].map((item) =>
+          item.external ? (
+            <a
+              key={item.to}
+              href={item.to}
+              className="flex flex-col items-center gap-1 transition-all duration-200 hover:text-[#38B2AC] border border-[#2C7A7B] rounded-full px-3 py-1"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <p className="tracking-wide">{item.label}</p>
+              <hr className="w-1/2 h-[2px] bg-[#2C7A7B] transition-all duration-200 scale-0 hover:scale-100" />
+            </a>
+          ) : (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              className={({ isActive }) =>
+                `flex flex-col items-center gap-1 transition-all duration-200 ${
+                  isActive
+                    ? "text-[#2C7A7B] font-semibold"
+                    : "hover:text-[#38B2AC]"
+                }`
+              }
+            >
+              <p className="tracking-wide">{item.label}</p>
+              <hr className="w-1/2 h-[2px] bg-[#2C7A7B] transition-all duration-200 scale-0 hover:scale-100" />
+            </NavLink>
+          )
+        )}
       </ul>
 
       <div className="flex items-center gap-6 ml-auto">
@@ -147,6 +161,15 @@ const Navbar = () => {
           >
             CONTACT
           </NavLink>
+          <a
+            onClick={() => setVisible(false)}
+            className="py-2 pl-6 border-b hover:bg-gray-50"
+            href={adminUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ADMIN
+          </a>
         </div>
       </div>
     </div>
