@@ -1,90 +1,130 @@
 # StyleVerse
 
-StyleVerse is a modern e-commerce platform built with React, offering customers a seamless shopping experience with a user-friendly interface and robust functionality.
+StyleVerse is a modern e-commerce platform for fashion enthusiasts. It allows users to browse products, add them to the cart, and place orders seamlessly. The platform is built using React, Vite, and Node.js.
 
-## Overview
+## Features
 
-ShopVerse is your go-to online store for high-quality products at competitive prices. Our platform brings products from around the world directly to your doorstep, with secure payment processing, fast shipping, and excellent customer service. 
-
-## Features 
-
-- **Responsive Design**: Fully responsive interface that works on all devices
-- **Product Collections**: Browse through categorized product collections
-- **User Authentication**:  Secure login and registration system
-- **Shopping Cart**: Easy-to-use cart functionality
-- **Payment Processing**: Multiple secure payment options
-- **Newsletter Subscription**: Stay updated with our latest offers
-- **Customer Support**: Easily reach out through multiple channels
+- **Product Listing**: Browse a wide range of fashion products dynamically.
+- **Cart Management**: Add products to the cart with size and quantity options.
+- **Order Tracking**: View and track your orders dynamically.
+- **Admin Login**: Secure admin login for managing the platform.
+- **Responsive Design**: Optimized for all devices.
+- **Secure Payments**: Integrated with Razorpay and Stripe for secure transactions.
 
 ## Tech Stack
 
-- **Frontend**: React, React Router
-- **Styling**: Tailwind CSS
-- **Icons**: React Icons (FaIcons)
-- **State Management**: React Redux
-- **Routing**: React Router DOM
+### Frontend
 
-## Project Structure
+- **React**: For building the user interface.
+- **Vite**: For fast development and build processes.
+- **Tailwind CSS**: For styling.
+- **React Router**: For navigation.
+- **React Toastify**: For notifications.
 
-The project follows a standard React application structure with components, assets, and pages organized for clarity and maintainability. The Footer component demonstrates the use of React Router for navigation and a clean, organized layout.
+### Backend
+
+- **Node.js**: For server-side logic.
+- **Express.js**: For building REST APIs.
+- **JWT**: For authentication.
+- **Environment Variables**: Managed using `.env` files.
 
 ## Installation
 
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Steps
+
 1. Clone the repository:
 
-   ```
-   git clone https://github.com/prateekraiger/StyleVerse
-   ```
-
-2. Navigate to the project directory:
-
-   ```
-   cd StyleVerse
+   ```bash
+   git clone https://github.com/your-repo/styleverse.git
+   cd styleverse
    ```
 
-3. Install dependencies:
+2. Install dependencies for both frontend and backend:
 
-   ```
+   ```bash
+   cd frontend
+   npm install
+   cd ../backend
    npm install
    ```
 
-4. Start the development server:
+3. Create `.env` files for both frontend and backend:
 
-   ```
-   npm start
-   ```
+   - **Frontend**: Add `VITE_BACKEND_URL` in `frontend/.env`.
+   - **Backend**: Add `ADMIN_EMAIL`, `ADMIN_PASSWORD`, and `JWT_SECRET` in `backend/.env`.
 
-5. Open your browser and visit:
-   ```
-   http://localhost:3000
-   ```
+4. Start the development servers:
 
-## Available Routes
+   - **Frontend**:
+     ```bash
+     cd frontend
+     npm run dev
+     ```
+   - **Backend**:
+     ```bash
+     cd backend
+     npm start
+     ```
 
-- `/` - Home page
-- `/collection` - Shop/Products page
-- `/about` - About Us page
-- `/contact` - Contact page
-- `/ordere` - Orders Page
-- `/shipping` - Shipping Policy
-- `/returns` - Returns & Exchanges
+5. Open the frontend in your browser at `http://localhost:5173`.
 
-## Customization
+## Folder Structure
 
-You can customize the look and feel of ShopVerse by modifying the Tailwind configuration and updating the component styles.
+```
+StyleVerse/
+├── admin/               # Admin panel (React + Vite)
+├── backend/             # Backend server (Node.js + Express)
+│   ├── controllers/     # API controllers
+│   ├── models/          # Database models
+│   ├── routes/          # API routes
+│   └── server.js        # Entry point for the backend
+├── frontend/            # Frontend application (React + Vite)
+│   ├── src/
+│   │   ├── assets/      # Static assets
+│   │   ├── components/  # Reusable components
+│   │   ├── context/     # Global state management
+│   │   ├── pages/       # Application pages
+│   │   └── App.jsx      # Main application file
+│   └── vite.config.js   # Vite configuration
+└── README.md            # Project documentation
+```
+
+## Scripts
+
+### Frontend
+
+- `npm run dev`: Start the development server.
+- `npm run build`: Build the application for production.
+
+### Backend
+
+- `npm start`: Start the backend server.
+
+## Environment Variables
+
+### Frontend
+
+- `VITE_BACKEND_URL`: URL of the backend server.
+
+### Backend
+
+- `ADMIN_EMAIL`: Admin email for login.
+- `ADMIN_PASSWORD`: Admin password for login.
+- `JWT_SECRET`: Secret key for JWT authentication.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
 
 ## Contributing
 
-We welcome contributions to improve ShopVerse! Please follow these steps:
+Contributions are welcome! Feel free to open issues or submit pull requests.
 
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Commit your changes (`git commit -m 'Add some amazing feature'`)
-5. Push to the branch (`git push origin feature/amazing-feature`)
-6. Open a Pull Request
+## Contact
 
-##  License
-----------
-
-StyleVerse Website is licensed under the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0.txt)
+For any inquiries, please contact [your-email@example.com].
