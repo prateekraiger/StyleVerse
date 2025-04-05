@@ -5,9 +5,9 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const Login = () => {
-  const [currentState, setCurrentState] = useState("Sign up");
   const { token, setToken, navigate, backendUrl } = useContext(ShopContext);
 
+  const [currentState, setCurrentState] = useState("Sign up");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -25,6 +25,7 @@ const Login = () => {
         if (response.data.success) {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
+          navigate("/"); // Redirect to home page
         } else {
           toast.error(response.data.message);
         }
@@ -36,6 +37,7 @@ const Login = () => {
         if (response.data.success) {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
+          navigate("/"); // Redirect to home page
         } else {
           toast.error(response.data.message);
         }

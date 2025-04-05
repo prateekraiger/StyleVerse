@@ -23,7 +23,6 @@ const loginUser = async (req, res) => {
       const token = createToken(user._id);
       res.json({ success: true, token });
     } else {
-      console.log(error);
       return res.json({ success: false, message: "Invalid email or password" });
     }
   } catch (error) {
