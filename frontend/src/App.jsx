@@ -9,12 +9,12 @@ import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Placeorder from "./pages/Placeorder";
 import Orders from "./pages/Orders";
-import Navbar from "./components/Navbar";
+import AdminPanel from "./pages/AdminPanel";
+import Navbar from "./components/Navbar"; // Use Navbar from components
 import Footer from "./components/Footer";
 import SearchBar from "./components/SearchBar";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 
 const COLORS = {
   primary: "#2C7A7B",
@@ -32,7 +32,6 @@ const COLORS = {
 
 // Apply global styles
 const applyGlobalStyles = () => {
-  // Add these styles directly to document head
   if (!document.getElementById("shop-global-styles")) {
     const style = document.createElement("style");
     style.id = "shop-global-styles";
@@ -116,6 +115,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/placeorder" element={<Placeorder />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/admin" element={<AdminPanel />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </main>

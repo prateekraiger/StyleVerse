@@ -73,6 +73,12 @@ const ShopContextProvider = (props) => {
     return totalAmount;
   };
 
+  const logout = () => {
+    setToken("");
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   const value = {
     products,
     currency,
@@ -89,6 +95,7 @@ const ShopContextProvider = (props) => {
     backendUrl,
     setToken,
     token,
+    logout,
   };
 
   return (
