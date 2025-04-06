@@ -23,9 +23,9 @@ const List = () => {
   ];
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">Product List</h1>
-      <table className="w-full border-collapse border border-gray-300">
+     <div className="p-4">
+       <h1 className="text-xl font-bold mb-4">Product List</h1>
+       <table className="w-full border-collapse border border-gray-300">
         <thead>
           <tr className="bg-gray-100">
             <th className="border border-gray-300 px-4 py-2">Name</th>
