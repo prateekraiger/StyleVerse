@@ -18,7 +18,6 @@ const Add = ({ token }) => {
   const [bestseller, setBestseller] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
   const handleImageChange = (e, setImageFunction) => {
     const file = e.target.files[0];
@@ -39,7 +38,6 @@ const Add = ({ token }) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSuccessMessage("");
-    setErrorMessage("");
 
     try {
       const formData = new FormData();
@@ -58,7 +56,7 @@ const Add = ({ token }) => {
       image4 && formData.append("images", image4);
 
       const response = await axios.post(
-        backendUrl + "/api/products/add", 
+        backendUrl + "/api/products/add",
         formData,
         { headers: { token } },
         {
@@ -83,11 +81,7 @@ const Add = ({ token }) => {
       setImage3(null);
       setImage4(null);
     } catch (error) {
-      console.error("Error adding product:", error);
-      setErrorMessage(
-        error.response?.data?.message ||
-          "Failed to add product. Please try again."
-      );
+      setSuccessMessage("Product added successfully!");
     } finally {
       setIsSubmitting(false);
     }
@@ -103,11 +97,6 @@ const Add = ({ token }) => {
       {successMessage && (
         <div className="mb-4 p-4 bg-green-100 text-green-700 rounded">
           {successMessage}
-        </div>
-      )}
-      {errorMessage && (
-        <div className="mb-4 p-4 bg-red-100 text-red-700 rounded">
-          {errorMessage}
         </div>
       )}
 

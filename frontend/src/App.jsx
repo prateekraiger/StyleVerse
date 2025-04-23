@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Collection from "./pages/Collection";
@@ -13,8 +13,10 @@ import AdminPanel from "./pages/AdminPanel";
 import Navbar from "./components/Navbar"; // Use Navbar from components
 import Footer from "./components/Footer";
 import SearchBar from "./components/SearchBar";
+import TrackOrder from "./pages/TrackOrder";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Preloader from "./components/Preloader";
 
 const COLORS = {
   primary: "#2C7A7B",
@@ -69,10 +71,18 @@ const applyGlobalStyles = () => {
 };
 
 const App = () => {
+  const [loading, setLoading] = useState(true);
+
   // Apply global styles when component mounts
-  React.useEffect(() => {
+  useEffect(() => {
     applyGlobalStyles();
+    const timer = setTimeout(() => setLoading(false), 2000); // Simulate loading for 2 seconds
+    return () => clearTimeout(timer);
   }, []);
+
+  if (loading) {
+    return <Preloader />;
+  }
 
   return (
     <div
@@ -112,6 +122,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/product/:productid" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/trackorder" element={<TrackOrder />} />
           <Route path="/login" element={<Login />} />
           <Route path="/placeorder" element={<Placeorder />} />
           <Route path="/orders" element={<Orders />} />
