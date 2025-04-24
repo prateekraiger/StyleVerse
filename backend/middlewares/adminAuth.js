@@ -7,10 +7,9 @@ const adminAuth = async (req, res, next) => {
       return res.json({ success: false, message: "No token provided" });
     }
 
-    const token_decode = jwt.verify(token, process.env.JWT_SECRET);
-
-    if (token_decode != process.env.ADMIN_EMAIL + process.env.ADMIN_PASSWORD) {
-      return res.json({ success: false, message: "Invalid token" });
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    if (!decoded.isAdmin || decoded.email !== process.env.ADMIN_EMAIL) {
+      return res.json({ success: false, message: "Invalid or unauthorized token" });
     }
     next();
   } catch (error) {

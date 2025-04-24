@@ -212,9 +212,6 @@ const Product = () => {
             >
               {addedToCart ? "Added to Cart ✓" : "Add to Cart"}
             </button>
-            <button className="flex-1 border border-black px-8 py-3 text-lg font-medium rounded-lg shadow-sm hover:bg-gray-100 transition">
-              Buy Now
-            </button>
           </div>
 
           {/* Shipping & Returns */}

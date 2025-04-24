@@ -5,12 +5,6 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const hardcodedOrders = [
-    { id: 1, productName: "Men's Jacket", quantity: 2, totalPrice: 2000 },
-    { id: 2, productName: "Women's Dress", quantity: 1, totalPrice: 1500 },
-    { id: 3, productName: "Kid's Shoes", quantity: 3, totalPrice: 1200 },
-  ];
-
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -23,8 +17,10 @@ const Orders = () => {
         setLoading(false);
       }
     };
-
     fetchOrders();
+    // Poll every 10 seconds for live updates
+    const interval = setInterval(fetchOrders, 10000);
+    return () => clearInterval(interval);
   }, []);
 
   if (loading) {
@@ -35,33 +31,7 @@ const Orders = () => {
     return (
       <div className="p-4">
         <h1 className="text-xl font-bold mb-4">Order List</h1>
-        <p className="text-gray-500">
-          No orders found. Displaying hardcoded data:
-        </p>
-        <table className="w-full border-collapse border border-gray-300">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="border border-gray-300 px-4 py-2">Product Name</th>
-              <th className="border border-gray-300 px-4 py-2">Quantity</th>
-              <th className="border border-gray-300 px-4 py-2">Total Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {hardcodedOrders.map((order) => (
-              <tr key={order.id}>
-                <td className="border border-gray-300 px-4 py-2">
-                  {order.productName}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {order.quantity}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  ₹{order.totalPrice}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <p className="text-gray-500">No orders found.</p>
       </div>
     );
   }
@@ -72,36 +42,31 @@ const Orders = () => {
       <table className="w-full border-collapse border border-gray-300">
         <thead>
           <tr className="bg-gray-100">
-            <th className="border border-gray-300 px-4 py-2">Product Name</th>
-            <th className="border border-gray-300 px-4 py-2">Quantity</th>
+            <th className="border border-gray-300 px-4 py-2">Order ID</th>
+            <th className="border border-gray-300 px-4 py-2">Products</th>
             <th className="border border-gray-300 px-4 py-2">Total Price</th>
           </tr>
         </thead>
         <tbody>
-          {orders.length > 0 ? (
-            orders.map((order) => (
-              <tr key={order.id}>
-                <td className="border border-gray-300 px-4 py-2">
-                  {order.productName}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {order.quantity}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  ₹{order.totalPrice}
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td
-                colSpan="3"
-                className="border border-gray-300 px-4 py-2 text-center"
-              >
-                No orders found.
+          {orders.map((order) => (
+            <tr key={order._id}>
+              <td className="border border-gray-300 px-4 py-2">{order._id}</td>
+              <td className="border border-gray-300 px-4 py-2">
+                <ul className="list-disc pl-4">
+                  {order.products && order.products.length > 0 ? (
+                    order.products.map((product, idx) => (
+                      <li key={idx}>
+                        {product.name} (Size: {product.size}, Qty: {product.quantity}, ₹{product.price})
+                      </li>
+                    ))
+                  ) : (
+                    <li>No products</li>
+                  )}
+                </ul>
               </td>
+              <td className="border border-gray-300 px-4 py-2">₹{order.totalPrice}</td>
             </tr>
-          )}
+          ))}
         </tbody>
       </table>
     </div>
