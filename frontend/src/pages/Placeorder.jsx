@@ -139,21 +139,21 @@ const Placeorder = () => {
           {/* payment method selection */}
           <div className="flex flex-col gap-3 mt-4">
             <div
-              onClick={() => setMethod("razorpay")}
+              onClick={() => setMethod("stripe")}
               className={`flex items-center gap-3 border p-3 rounded-lg cursor-pointer hover:bg-gray-50 transition-all ${
-                method === "razorpay" ? "border-blue-500 bg-blue-50" : ""
+                method === "stripe" ? "border-blue-500 bg-blue-50" : ""
               }`}
             >
               <div
                 className={`w-5 h-5 rounded-full border flex items-center justify-center ${
-                  method === "razorpay" ? "border-blue-500" : "border-gray-400"
+                  method === "stripe" ? "border-blue-500" : "border-gray-400"
                 }`}
               >
-                {method === "razorpay" && (
+                {method === "stripe" && (
                   <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
                 )}
               </div>
-              <img className="h-6" src={assets.razorpay_logo} alt="Razorpay" />
+              <img className="h-6" src={assets.stripe_logo} alt="Stripe" />
             </div>
 
             <div
