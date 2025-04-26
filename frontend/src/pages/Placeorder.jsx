@@ -5,6 +5,9 @@ import { assets } from "../assets/assets";
 import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe("pk_test_51RIAFTPbT13EgNjQbu5RoViaKKqpGA1qboAdtg3ZJNeQkY12wE1mSzgw2zC2jvpyq6bQopcSjwhtyDzNjIZqVZ7b00SnzDfZi9"); // TODO: Replace with your real Stripe publishable key
 
 const Placeorder = () => {
   const [method, setMethod] = useState("cod");
@@ -44,12 +47,23 @@ const Placeorder = () => {
     }
     setLoading(true);
     try {
+      if (method === "stripe") {
+        // Call backend to create Stripe Checkout session
+        const response = await axios.post("/api/create-checkout-session", {
+          products: cartData,
+          totalPrice,
+        });
+        const sessionId = response.data.sessionId;
+        const stripe = await stripePromise;
+        await stripe.redirectToCheckout({ sessionId });
+        return;
+      }
+      // COD fallback
       const payload = {
         products: cartData,
         totalPrice,
         date: new Date(),
       };
-      // Remove user field entirely for guest checkout compatibility
       await axios.post("/api/orders", payload);
       toast.success("Order placed successfully!");
       navigate("/orders");
