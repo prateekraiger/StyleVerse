@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { products, totalPrice, date } = req.body;
+    const { products, totalPrice, date, delivery } = req.body;
     // Defensive: ensure products is an array and totalPrice is a number
     if (!Array.isArray(products) || products.length === 0) {
       return res.status(400).json({ success: false, message: "Products array is required" });
@@ -22,10 +22,14 @@ router.post("/", async (req, res) => {
     if (typeof totalPrice !== "number" || totalPrice <= 0) {
       return res.status(400).json({ success: false, message: "Total price must be a positive number" });
     }
+    if (!delivery || Object.values(delivery).some(v => !v || v.trim() === "")) {
+      return res.status(400).json({ success: false, message: "Delivery information is required for all fields" });
+    }
     const newOrder = new Order({
       products,
       totalPrice,
       date: date || new Date(),
+      delivery,
     });
     await newOrder.save();
     res.json({ success: true, order: newOrder });

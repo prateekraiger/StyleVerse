@@ -4,6 +4,7 @@ import Stripe from "stripe";
 const router = express.Router();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+// Stripe Checkout Session
 router.post("/create-checkout-session", async (req, res) => {
   const { products, totalPrice } = req.body;
   try {
@@ -20,8 +21,8 @@ router.post("/create-checkout-session", async (req, res) => {
         quantity: item.quantity,
       })),
       mode: "payment",
-      success_url: "http://localhost:3000/orders", 
-      cancel_url: "http://localhost:3000/placeorder",
+      success_url: "http://localhost:5173/orders?success=true", // add query param for clarity
+      cancel_url: "http://localhost:5173/placeorder?canceled=true",
     });
     res.json({ sessionId: session.id });
   } catch (err) {

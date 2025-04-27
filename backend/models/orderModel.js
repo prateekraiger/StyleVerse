@@ -15,6 +15,17 @@ const orderSchema = new mongoose.Schema(
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: false },
     totalPrice: { type: Number, required: true },
     date: { type: Date, default: Date.now },
+    delivery: {
+      firstName: String,
+      lastName: String,
+      email: String,
+      street: String,
+      city: String,
+      state: String,
+      pincode: String,
+      country: String,
+      phone: String,
+    },
   },
   { timestamps: true }
 );

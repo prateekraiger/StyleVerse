@@ -1,34 +1,30 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
+import axios from "axios";
 import { assets } from "../assets/assets";
 
 const TrackOrder = () => {
   const navigate = useNavigate();
-  const { products, cartItems } = useContext(ShopContext);
+  const { products, currency } = useContext(ShopContext);
+  const [ordersList, setOrdersList] = useState([]);
 
-  const cartData = [];
-  for (const itemId in cartItems) {
-    for (const size in cartItems[itemId]) {
-      if (cartItems[itemId][size] > 0) {
-        cartData.push({
-          _id: itemId,
-          size: size,
-          quantity: cartItems[itemId][size],
-        });
-      }
-    }
-  }
+  useEffect(() => {
+    axios.get("/api/orders")
+      .then(res => setOrdersList(res.data.orders))
+      .catch(err => console.error("Fetch orders error:", err));
+  }, []);
+
+  const latestOrder = ordersList.length > 0 ? ordersList[ordersList.length - 1] : null;
+  const orderItems = latestOrder?.products || latestOrder?.items || [];
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-14 border-t">
       <h1 className="text-3xl font-semibold mb-2">Track Your Order</h1>
-      {cartData.length === 0 ? (
-        <p className="text-gray-500">No orders to track.</p>
-      ) : (
-        cartData.map((item, index) => {
+      {latestOrder ? (
+        orderItems.map((item, index) => {
           const productData = products.find(
-            (product) => product._id === item._id
+            (product) => product._id === item.productId
           );
 
           if (!productData) return null;
@@ -47,11 +43,13 @@ const TrackOrder = () => {
               />
               <div>
                 <p className="text-sm sm:text-lg font-medium">{name}</p>
-                <p className="text-gray-500">Order Status: Ordered</p>
+                <p className="text-gray-500">Order Status: Shipped</p>
               </div>
             </div>
           );
         })
+      ) : (
+        <p className="text-gray-500">No orders to track.</p>
       )}
       <button
         onClick={() => navigate("/cart")}

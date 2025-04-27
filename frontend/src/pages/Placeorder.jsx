@@ -12,7 +12,20 @@ const stripePromise = loadStripe("pk_test_51RIAFTPbT13EgNjQbu5RoViaKKqpGA1qboAdt
 const Placeorder = () => {
   const [method, setMethod] = useState("cod");
   const [loading, setLoading] = useState(false);
-  const { products, cartItems, navigate, user } = useContext(ShopContext);
+  const { products, cartItems, navigate, user, clearCart } = useContext(ShopContext);
+
+  // Delivery information state
+  const [delivery, setDelivery] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    street: "",
+    city: "",
+    state: "",
+    pincode: "",
+    country: "",
+    phone: "",
+  });
 
   // Helper: Convert cartItems to array of products for backend
   const cartData = [];
@@ -33,6 +46,9 @@ const Placeorder = () => {
     }
   }
 
+  // Helper: Validate delivery info
+  const isDeliveryValid = Object.values(delivery).every((v) => v.trim() !== "");
+
   // Calculate total price
   const totalPrice = cartData.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -45,9 +61,15 @@ const Placeorder = () => {
       toast.error("Cart is empty");
       return;
     }
+    if (!isDeliveryValid) {
+      toast.error("Please fill in all delivery information fields");
+      return;
+    }
     setLoading(true);
     try {
       if (method === "stripe") {
+        // create order in DB before redirecting to Stripe
+        await axios.post("/api/orders", { products: cartData, totalPrice, date: new Date(), delivery });
         // Call backend to create Stripe Checkout session
         const response = await axios.post("/api/create-checkout-session", {
           products: cartData,
@@ -56,6 +78,9 @@ const Placeorder = () => {
         const sessionId = response.data.sessionId;
         const stripe = await stripePromise;
         await stripe.redirectToCheckout({ sessionId });
+        // Clear cart after successful payment redirect
+        clearCart();
+        window.location.href = "/orders";
         return;
       }
       // COD fallback
@@ -63,9 +88,12 @@ const Placeorder = () => {
         products: cartData,
         totalPrice,
         date: new Date(),
+        delivery,
       };
       await axios.post("/api/orders", payload);
       toast.success("Order placed successfully!");
+      // Clear cart after COD order
+      clearCart();
       navigate("/orders");
     } catch (err) {
       toast.error("Order placement failed");
@@ -91,33 +119,45 @@ const Placeorder = () => {
             type="text"
             placeholder="First Name"
             className="border border-gray-300 rounded py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-300"
+            value={delivery.firstName}
+            onChange={(e) => setDelivery({ ...delivery, firstName: e.target.value })}
           />
           <input
             type="text"
             placeholder="Last Name"
             className="border border-gray-300 rounded py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-300"
+            value={delivery.lastName}
+            onChange={(e) => setDelivery({ ...delivery, lastName: e.target.value })}
           />
         </div>
         <input
           type="email"
           placeholder="Enter your email"
           className="border border-gray-300 rounded py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-300"
+          value={delivery.email}
+          onChange={(e) => setDelivery({ ...delivery, email: e.target.value })}
         />
         <input
           type="text"
           placeholder="Street"
           className="border border-gray-300 rounded py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-300"
+          value={delivery.street}
+          onChange={(e) => setDelivery({ ...delivery, street: e.target.value })}
         />
         <div className="flex gap-3">
           <input
             type="text"
             placeholder="City"
             className="border border-gray-300 rounded py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-300"
+            value={delivery.city}
+            onChange={(e) => setDelivery({ ...delivery, city: e.target.value })}
           />
           <input
             type="text"
             placeholder="State"
             className="border border-gray-300 rounded py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-300"
+            value={delivery.state}
+            onChange={(e) => setDelivery({ ...delivery, state: e.target.value })}
           />
         </div>
         <div className="flex gap-3">
@@ -125,17 +165,23 @@ const Placeorder = () => {
             type="number"
             placeholder="PinCode"
             className="border border-gray-300 rounded py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-300"
+            value={delivery.pincode}
+            onChange={(e) => setDelivery({ ...delivery, pincode: e.target.value })}
           />
           <input
             type="text"
             placeholder="Country"
             className="border border-gray-300 rounded py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-300"
+            value={delivery.country}
+            onChange={(e) => setDelivery({ ...delivery, country: e.target.value })}
           />
         </div>
         <input
           type="tel"
           placeholder="Phone"
           className="border border-gray-300 rounded py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-300"
+          value={delivery.phone}
+          onChange={(e) => setDelivery({ ...delivery, phone: e.target.value })}
         />
       </div>
 

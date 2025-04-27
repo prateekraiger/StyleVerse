@@ -79,6 +79,11 @@ const ShopContextProvider = (props) => {
     navigate("/login");
   };
 
+  const clearCart = () => {
+    setCartItems({});
+    localStorage.removeItem("cartItems");
+  };
+
   const value = {
     products,
     currency,
@@ -96,6 +101,7 @@ const ShopContextProvider = (props) => {
     setToken,
     token,
     logout,
+    clearCart,
   };
 
   return (
