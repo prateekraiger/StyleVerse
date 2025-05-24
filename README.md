@@ -125,6 +125,4 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 Contributions are welcome! Feel free to open issues or submit pull requests.
 
-## Contact
 
-For any inquiries, please contact [your-email@example.com].
