@@ -9,7 +9,6 @@ import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Placeorder from "./pages/Placeorder";
 import Orders from "./pages/Orders";
-import AdminPanel from "./pages/AdminPanel";
 import Navbar from "./components/Navbar"; // Use Navbar from components
 import Footer from "./components/Footer";
 import SearchBar from "./components/SearchBar";
@@ -126,7 +125,6 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/placeorder" element={<Placeorder />} />
           <Route path="/orders" element={<Orders />} />
-          <Route path="/admin" element={<AdminPanel />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </main>
